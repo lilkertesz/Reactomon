@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 
 class PokemonList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-    };
-  }
+  state = {
+    error: null,
+    isLoaded: false,
+    items: [],
+    url: "https://pokeapi.co/api/v2/pokemon",
+  };
 
   componentDidMount() {
-    fetch("https://pokeapi.co/api/v2/pokemon")
+    fetch(this.state.url)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.results,
+            items: result,
           });
         },
         (error) => {
@@ -27,6 +25,14 @@ class PokemonList extends Component {
           });
         }
       );
+  }
+
+  componentDidUpdate() {
+    this.componentDidMount();
+  }
+
+  setNextPage() {
+    this.setState({ url: this.state.items.next });
   }
 
   render() {
@@ -39,13 +45,18 @@ class PokemonList extends Component {
       return (
         <div>
           <div className="card-container">
-            {items.map((item) => (
+            {items.results.map((item) => (
               <div className="card bg-info" key={item.name}>
                 {item.name}
               </div>
             ))}
           </div>
-          <button className="btn btn-secondary next-page">Next</button>
+          <button
+            className="btn btn-secondary next-page"
+            onClick={this.setNextPage.bind(this)}
+          >
+            Next
+          </button>
         </div>
       );
     }

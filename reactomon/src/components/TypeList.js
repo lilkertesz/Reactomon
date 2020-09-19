@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 
 class TypeList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-    };
-  }
+  state = {
+    error: null,
+    isLoaded: false,
+    items: [],
+    url: "https://pokeapi.co/api/v2/type",
+  };
 
   componentDidMount() {
-    fetch("https://pokeapi.co/api/v2/type")
+    fetch(this.state.url)
       .then((res) => res.json())
       .then(
         (result) => {
