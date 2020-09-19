@@ -10,10 +10,13 @@
   margin: 1%;
 }
 
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+}
+
 .card-container {
-  width: fit-content;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 25%;
+  margin-right: 25%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -23,4 +26,8 @@
   margin-right: 20%;
   position: absolute;
   right: 0;
+}
+
+.pokename {
+  color: black;
 }

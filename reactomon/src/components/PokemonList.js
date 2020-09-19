@@ -49,10 +49,11 @@ class PokemonList extends Component {
             {items.results.map((item) => (
               <div
                 className="card bg-info"
+                style={{ width: "150px" }}
                 key={item.name}
                 onClick={this.renderCardDetails}
               >
-                {item.name.toUpperCase()}
+                <div className="pokename">{item.name.toUpperCase()}</div>
                 <React.Fragment>
                   <PokemonDetail url={item.url}></PokemonDetail>
                 </React.Fragment>
