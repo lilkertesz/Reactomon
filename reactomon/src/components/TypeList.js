@@ -37,13 +37,15 @@ class TypeList extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>
-          {items.map((item) => (
-            <li key={item.name}>
-              {item.name} {item.url}
-            </li>
-          ))}
-        </ul>
+        <div>
+          <div className="card-container">
+            {items.map((item) => (
+              <div className="card bg-info" key={item.name}>
+                {item.name}
+              </div>
+            ))}
+          </div>
+        </div>
       );
     }
   }

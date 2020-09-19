@@ -7,4 +7,20 @@
   padding: 1%;
   font-weight: 800;
   color: blue;
+  margin: 1%;
+}
+
+.card-container {
+  width: fit-content;
+  margin-left: 20%;
+  margin-right: 20%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.next-page {
+  margin-right: 20%;
+  position: absolute;
+  right: 0;
 }
