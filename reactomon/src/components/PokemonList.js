@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PokemonDetail from "./PokemonDetail";
 
 class PokemonList extends Component {
   state = {
@@ -46,8 +47,15 @@ class PokemonList extends Component {
         <div>
           <div className="card-container">
             {items.results.map((item) => (
-              <div className="card bg-info" key={item.name}>
-                {item.name}
+              <div
+                className="card bg-info"
+                key={item.name}
+                onClick={this.renderCardDetails}
+              >
+                {item.name.toUpperCase()}
+                <React.Fragment>
+                  <PokemonDetail url={item.url}></PokemonDetail>
+                </React.Fragment>
               </div>
             ))}
           </div>
