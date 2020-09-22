@@ -38,7 +38,7 @@ class TypeList extends Component {
         <div>
           <div className="card-container">
             {items.map((item) => (
-              <div className="card bg-info" key={item.name}>
+              <div className="card bg-info pokefont" key={item.name}>
                 {item.name}
               </div>
             ))}

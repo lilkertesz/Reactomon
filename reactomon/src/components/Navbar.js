@@ -21,8 +21,8 @@ class Navbar extends Component {
             <Link to="/types">POKETYPES</Link>
           </div>
         </div>
-        <Route path="/pokemons" component={PokemonList} />
-        <Route path="/types" component={TypeList} />
+        <Route path="/pokemons" exact component={PokemonList} />
+        <Route path="/types" exact component={TypeList} />
       </Router>
     );
   }

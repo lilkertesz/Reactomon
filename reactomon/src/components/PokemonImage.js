@@ -5,7 +5,7 @@ export default class PokemonDetail extends Component {
     error: null,
     isLoaded: false,
     items: [],
-    url: `https://pokeapi.co/api/v2/pokemon/${this.props.match.params.id}`,
+    url: this.props.url,
   };
 
   componentDidMount() {
@@ -28,12 +28,12 @@ export default class PokemonDetail extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.id);
     return (
       <div>
-        <div>Experience: {this.state.items.base_experience}</div>
-        <div>Height: {this.state.items.height}</div>
-        <div>Weight: {this.state.items.weight}</div>
+        <img
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.items.id}.png`}
+          alt="pokemon"
+        ></img>
       </div>
     );
   }
