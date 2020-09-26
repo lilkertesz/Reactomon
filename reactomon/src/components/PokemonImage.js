@@ -1,40 +1,24 @@
-import React, { Component } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-export default class PokemonDetail extends Component {
-  state = {
-    error: null,
-    isLoaded: false,
-    items: [],
-    url: this.props.url,
-  };
+const PokemonDetail = (props) => {
+  const [id, setId] = useState();
+  const [url] = useState(props.url);
 
-  componentDidMount() {
-    fetch(this.state.url)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
-  }
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setId(response.data.id);
+    });
+  }, [url]);
 
-  render() {
-    return (
-      <div>
-        <img
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.state.items.id}.png`}
-          alt="pokemon"
-        ></img>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <img
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+        alt="pokemon"
+      ></img>
+    </div>
+  );
+};
+
+export default PokemonDetail;

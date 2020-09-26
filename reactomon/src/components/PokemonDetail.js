@@ -1,40 +1,56 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Ability from "./Ability";
 
-export default class PokemonDetail extends Component {
-  state = {
-    error: null,
-    isLoaded: false,
-    items: [],
-    url: `https://pokeapi.co/api/v2/pokemon/${this.props.match.params.id}`,
-  };
+const PokemonDetail = (props) => {
+  const [items, setItems] = useState({
+    experience: null,
+    height: null,
+    weight: null,
+    abilities: [],
+    name: null,
+    sprites: {},
+  });
+  const [url] = useState(
+    `https://pokeapi.co/api/v2/pokemon/${props.match.params.id}`
+  );
 
-  componentDidMount() {
-    fetch(this.state.url)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
-  }
-
-  render() {
-    console.log(this.props.match.params.id);
-    return (
-      <div>
-        <div>Experience: {this.state.items.base_experience}</div>
-        <div>Height: {this.state.items.height}</div>
-        <div>Weight: {this.state.items.weight}</div>
-      </div>
+  useEffect(() => {
+    axios.get(url).then((response) =>
+      setItems({
+        experience: response.data.base_experience,
+        height: response.data.height,
+        weight: response.data.weight,
+        abilities: response.data.abilities,
+        name: response.data.name,
+        sprites: response.data.sprites,
+      })
     );
-  }
-}
+  }, [url]);
+
+  return (
+    <div className="pokemon-detail">
+      <h3>{items.name}</h3>
+      <div>
+        <img src={items.sprites.front_default} alt=""></img>
+        <img src={items.sprites.back_default} alt=""></img>
+      </div>
+      <div>Experience: {items.experience}</div>
+      <div>Height: {items.height}</div>
+      <div>Weight: {items.weight}</div>
+      <p className="abilities">
+        Abilities:
+        {items.abilities.map((ability) => (
+          <div>
+            <ul>
+              <li key={ability.ability.name}>{ability.ability.name}</li>
+            </ul>
+            <Ability url={ability.ability.url}></Ability>
+          </div>
+        ))}
+      </p>
+    </div>
+  );
+};
+
+export default PokemonDetail;

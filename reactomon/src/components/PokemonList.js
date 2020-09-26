@@ -9,9 +9,6 @@ const PokemonList = (props) => {
     previous: null,
     results: [],
   });
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(null);
-  const [itemId] = useState(null);
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon");
 
   useEffect(() => {
@@ -22,14 +19,16 @@ const PokemonList = (props) => {
         results: response.data.results,
       })
     );
-  }, [url, items]);
+  }, [url]);
 
   return (
     <div>
       <div className="card-container">
         {items.results.map((item) => (
           <div className="card bg-info pokelist" key={item.name}>
-            <Link to={`/pokemons/${itemId}`}>
+            <Link
+              to={`/pokemons/${item.url.split("/").slice(-2).slice(0, -1)}`}
+            >
               <div className="pokefont">{item.name}</div>
             </Link>
             <PokemonImage url={item.url}></PokemonImage>
