@@ -1,81 +1,55 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PokemonImage from "./PokemonImage";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-class PokemonList extends Component {
-  state = {
-    error: null,
-    isLoaded: false,
-    items: [],
-    url: "https://pokeapi.co/api/v2/pokemon",
-    itemId: null,
-  };
+const PokemonList = (props) => {
+  const [items, setItems] = useState({
+    next: null,
+    previous: null,
+    results: [],
+  });
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+  const [itemId] = useState(null);
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon");
 
-  componentDidMount() {
-    fetch(this.state.url)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
-  }
+  useEffect(() => {
+    axios.get(url).then((response) =>
+      setItems({
+        next: response.data.next,
+        previous: response.data.previous,
+        results: response.data.results,
+      })
+    );
+  }, [url, items]);
 
-  componentDidUpdate() {
-    this.componentDidMount();
-  }
-
-  setNextPage() {
-    this.setState({ url: this.state.items.next });
-  }
-
-  setId(url) {
-    let id = url.substring(url.length - 2);
-    this.setState({ itemId: id });
-  }
-
-  render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-      return (
-        <div>
-          <div className="card-container">
-            {items.results.map((item) => (
-              <div
-                className="card bg-info pokelist"
-                style={{ width: "150px" }}
-                key={item.name}
-              >
-                <Link to={`/pokemons/${this.state.itemId}`}>
-                  <div className="pokefont">{item.name}</div>
-                </Link>
-                <PokemonImage url={item.url}></PokemonImage>
-              </div>
-            ))}
+  return (
+    <div>
+      <div className="card-container">
+        {items.results.map((item) => (
+          <div className="card bg-info pokelist" key={item.name}>
+            <Link to={`/pokemons/${itemId}`}>
+              <div className="pokefont">{item.name}</div>
+            </Link>
+            <PokemonImage url={item.url}></PokemonImage>
           </div>
-          <button
-            className="btn btn-secondary next-page"
-            onClick={this.setNextPage.bind(this)}
-          >
-            Next
-          </button>
-        </div>
-      );
-    }
-  }
-}
+        ))}
+      </div>
+      <button
+        className="btn btn-danger prev-page"
+        onClick={() => setUrl(items.previous)}
+      >
+        Previous
+      </button>
+      <button
+        className="btn btn-danger next-page"
+        onClick={() => setUrl(items.next)}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default PokemonList;

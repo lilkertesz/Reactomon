@@ -13,7 +13,7 @@ class Navbar extends Component {
             <Link to="/pokemons">POKEMONS</Link>
           </div>
           <img
-            src={require("./images/logo.JPG")}
+            src={require("../images/logo.JPG")}
             alt="pokelogo"
             width="100px"
           />

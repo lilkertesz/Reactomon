@@ -4,10 +4,10 @@
 }
 
 .card {
-  padding: 1%;
+  padding: 0.5%;
   font-weight: 800;
   color: blue;
-  margin: 1%;
+  margin: 0.5%;
 }
 
 .card:hover {
@@ -15,22 +15,38 @@
 }
 
 .card-container {
-  margin-left: 18%;
-  margin-right: 18%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   text-align: center;
+  margin: 3% 5% 0% 5%;
+  z-index: 2;
+  position: fixed;
 }
 
+.pokelist {
+  width: 110px;
+}
+
+.main-image {
+  margin-left: 5%;
+  z-index: 1;
+  position: fixed;
+  opacity: 40%;
+}
 .next-page {
-  margin-right: 20.5%;
-  margin-top: 0.5%;
-  margin-bottom: 1%;
+  margin: 30% 40% 0% 0%;
   position: absolute;
   right: 0;
-}
 
+  z-index: 2;
+}
+.prev-page {
+  margin: 30% 0% 0% 40%;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
 .pokefont {
   color: white;
   font-weight: 600;
