@@ -38,17 +38,17 @@ const PokemonDetail = (props) => {
       <div>Experience: {items.experience}</div>
       <div>Height: {items.height}</div>
       <div>Weight: {items.weight}</div>
-      <p className="abilities">
+      <div className="abilities">
         Abilities:
         {items.abilities.map((ability) => (
-          <div>
+          <div key={ability.ability.name}>
             <ul>
-              <li key={ability.ability.name}>{ability.ability.name}</li>
+              <li>{ability.ability.name}</li>
             </ul>
             <Ability url={ability.ability.url}></Ability>
           </div>
         ))}
-      </p>
+      </div>
     </div>
   );
 };

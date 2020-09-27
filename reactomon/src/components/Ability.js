@@ -19,12 +19,11 @@ const Ability = (props) => {
 
   return (
     <div>
-      {items.description.map((descr) =>
-        descr.language.name === "en" ? (
-          <p key={descr.short_effect}>{descr.short_effect}</p>
-        ) : (
-          <div></div>
-        )
+      {items.description.map(
+        (descr) =>
+          descr.language.name === "en" && (
+            <p key={descr.short_effect}>{descr.short_effect}</p>
+          )
       )}
     </div>
   );
