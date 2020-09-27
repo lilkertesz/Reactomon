@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PokemonImage from "./PokemonImage";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
 
 const PokemonList = (props) => {
   const [items, setItems] = useState({
@@ -23,32 +24,67 @@ const PokemonList = (props) => {
 
   return (
     <div>
-      <div className="card-container">
+      <CardContainer>
         {items.results.map((item) => (
-          <div className="card bg-info pokelist" key={item.name}>
+          <Card
+            className="card bg-info"
+            key={item.name}
+            style={{ width: "110px" }}
+          >
             <Link
               to={`/pokemons/${item.url.split("/").slice(-2).slice(0, -1)}`}
             >
-              <div className="pokefont">{item.name}</div>
+              <div style={{ color: "white", fontWeight: "600" }}>
+                {item.name}
+              </div>
             </Link>
             <PokemonImage url={item.url}></PokemonImage>
-          </div>
+          </Card>
         ))}
-      </div>
-      <button
-        className="btn btn-danger prev-page"
+      </CardContainer>
+      <PrevButton
+        className="btn btn-danger"
         onClick={() => setUrl(items.previous)}
       >
         Previous
-      </button>
-      <button
-        className="btn btn-danger next-page"
-        onClick={() => setUrl(items.next)}
-      >
+      </PrevButton>
+      <NextButton className="btn btn-danger" onClick={() => setUrl(items.next)}>
         Next
-      </button>
+      </NextButton>
     </div>
   );
 };
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: center;
+  margin: 3% 5% 0% 5%;
+  z-index: 2;
+  position: fixed;
+`;
+
+const Card = styled.div`
+  padding: 0.5%;
+  margin: 0.5%;
+  :hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+  }
+`;
+
+const NextButton = styled.button`
+  margin: 30% 40% 0% 0%;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+`;
+
+const PrevButton = styled.button`
+  margin: 30% 0% 0% 40%;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+`;
 
 export default PokemonList;

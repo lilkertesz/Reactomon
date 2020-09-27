@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
 import Navbar from "./components/Navbar";
 import PokemonDetail from "./components/PokemonDetail";
 import PokemonList from "./components/PokemonList";
 import TypeList from "./components/TypeList";
 import Background from "./images/pokemons.JPG";
 import { Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 
 function App() {
   return (
@@ -18,10 +18,21 @@ function App() {
         <Route path="/types" component={TypeList} exact />
       </Switch>
       <div>
-        <img src={Background} alt="" className="main-image"></img>
+        <BackgroundImage
+          src={Background}
+          alt=""
+          className="main-image"
+        ></BackgroundImage>
       </div>
     </React.Fragment>
   );
 }
+
+const BackgroundImage = styled.img`
+  margin-left: 5%;
+  z-index: 1;
+  position: fixed;
+  opacity: 40%;
+`;
 
 export default App;

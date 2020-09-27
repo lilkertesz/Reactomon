@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 const TypeList = (props) => {
   const [types, setTypes] = useState({
@@ -14,14 +15,36 @@ const TypeList = (props) => {
   }, [url]);
 
   return (
-    <div className="types">
+    <Types>
       {types.results.map((item) => (
-        <div className="card bg-info pokefont" key={item.name}>
+        <Card
+          className="card bg-info"
+          key={item.name}
+          style={{ color: "white", fontWeight: "600" }}
+        >
           {item.name}
-        </div>
+        </Card>
       ))}
-    </div>
+    </Types>
   );
 };
+
+const Types = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: center;
+  margin: 3% 35% 0% 35%;
+  z-index: 2;
+  position: fixed;
+`;
+
+const Card = styled.div`
+  padding: 0.5%;
+  margin: 0.5%;
+  :hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+  }
+`;
 
 export default TypeList;

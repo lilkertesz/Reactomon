@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Ability from "./Ability";
+import styled from "styled-components";
 
 const PokemonDetail = (props) => {
   const [items, setItems] = useState({
@@ -29,7 +30,7 @@ const PokemonDetail = (props) => {
   }, [url]);
 
   return (
-    <div className="pokemon-detail">
+    <Details>
       <h3>{items.name}</h3>
       <div>
         <img src={items.sprites.front_default} alt=""></img>
@@ -38,19 +39,36 @@ const PokemonDetail = (props) => {
       <div>Experience: {items.experience}</div>
       <div>Height: {items.height}</div>
       <div>Weight: {items.weight}</div>
-      <div className="abilities">
+      <Abilities>
         Abilities:
         {items.abilities.map((ability) => (
           <div key={ability.ability.name}>
-            <ul>
+            <ul style={{ listStyle: "circle" }}>
               <li>{ability.ability.name}</li>
             </ul>
             <Ability url={ability.ability.url}></Ability>
           </div>
         ))}
-      </div>
-    </div>
+      </Abilities>
+    </Details>
   );
 };
+
+const Details = styled.div`
+  padding: 1%;
+  width: 30%;
+  background-color: white;
+  opacity: 90%;
+  border-radius: 5%;
+  margin-left: 35%;
+  z-index: 2;
+  position: absolute;
+  text-align: center;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+`;
+
+const Abilities = styled.div`
+  text-align: left;
+`;
 
 export default PokemonDetail;

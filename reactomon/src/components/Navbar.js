@@ -1,21 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./style.css";
+import styled from "styled-components";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
-      <div className="card bg-warning">
-        <Link to="/pokemons">POKEMONS</Link>
-      </div>
+    <Navigation className="navbar">
+      <Card className="card bg-warning">
+        <Link to="/pokemons" style={{ textDecoration: "none" }}>
+          POKEMONS
+        </Link>
+      </Card>
       <Link to="/">
         <img src={require("../images/logo.JPG")} alt="pokelogo" width="100px" />
       </Link>
-      <div className="card bg-warning">
-        <Link to="/types">POKETYPES</Link>
-      </div>
-    </div>
+      <Card className="card bg-warning">
+        <Link to="/types" style={{ textDecoration: "none" }}>
+          POKETYPES
+        </Link>
+      </Card>
+    </Navigation>
   );
 };
+
+const Card = styled.div`
+  padding: 1% 2%;
+  text-decoration: none;
+  font-weight: 700;
+  color: #dc3545;
+`;
+
+const Navigation = styled.div`
+  margin-left: 30%;
+  margin-right: 30%;
+`;
 
 export default Navbar;
