@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Ability from "./Ability";
 import styled from "styled-components";
+import { useBlackTheme } from "../context/ThemeContext.js";
 
 const PokemonDetail = (props) => {
   const [items, setItems] = useState({
@@ -15,6 +16,14 @@ const PokemonDetail = (props) => {
   const [url] = useState(
     `https://pokeapi.co/api/v2/pokemon/${props.match.params.id}`
   );
+
+  const blackTheme = useBlackTheme();
+
+  const cardStyle = {
+    backgroundColor: blackTheme ? "black" : "white",
+    color: blackTheme ? "white" : "black",
+    opacity: blackTheme ? "95%" : "85%",
+  };
 
   useEffect(() => {
     axios.get(url).then((response) =>
@@ -30,7 +39,7 @@ const PokemonDetail = (props) => {
   }, [url]);
 
   return (
-    <Details>
+    <Details style={cardStyle}>
       <h3>{items.name}</h3>
       <div>
         <img src={items.sprites.front_default} alt=""></img>
@@ -57,8 +66,6 @@ const PokemonDetail = (props) => {
 const Details = styled.div`
   padding: 1%;
   width: 30%;
-  background-color: white;
-  opacity: 90%;
   border-radius: 5%;
   margin-left: 35%;
   z-index: 2;

@@ -6,10 +6,11 @@ import TypeList from "./components/TypeList";
 import Background from "./images/pokemons.JPG";
 import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
+import { ThemeProvider } from "./context/ThemeContext.js";
 
 function App() {
   return (
-    <React.Fragment>
+    <ThemeProvider>
       <Navbar></Navbar>
       <Switch>
         <Route path="/" exact />
@@ -17,14 +18,12 @@ function App() {
         <Route path="/pokemons/:id" component={PokemonDetail} exact />
         <Route path="/types" component={TypeList} exact />
       </Switch>
-      <div>
-        <BackgroundImage
-          src={Background}
-          alt=""
-          className="main-image"
-        ></BackgroundImage>
-      </div>
-    </React.Fragment>
+      <BackgroundImage
+        src={Background}
+        alt=""
+        className="main-image"
+      ></BackgroundImage>
+    </ThemeProvider>
   );
 }
 
