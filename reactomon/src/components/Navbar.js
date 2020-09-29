@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const themeStyles = {
     backgroundColor: blackTheme ? "yellow" : "black",
-    color: blackTheme ? "black" : "dodgerblue",
+    color: blackTheme ? "black" : "white",
   };
 
   const navStyles = {
@@ -28,7 +28,7 @@ const Navbar = () => {
           POKEMONS
         </Link>
       </Card>
-      <Link to="/">
+      <Link to="/catched">
         <img src={require("../images/logo.JPG")} alt="pokelogo" width="100px" />
       </Link>
       <Card className="card" style={navStyles}>

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PokemonImage from "./PokemonImage";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { useBlackTheme } from "../context/ThemeContext.js";
+import { CatchedContext } from "../context/CatchedContext";
 
 const PokemonList = () => {
   const [items, setItems] = useState({
@@ -15,13 +16,17 @@ const PokemonList = () => {
 
   const blackTheme = useBlackTheme();
 
+  const [catched, setCatched] = useContext(CatchedContext);
+
   const cardStyles = {
-    backgroundColor: blackTheme ? "black" : "steelblue",
+    background: blackTheme
+      ? "linear-gradient(to bottom, black, darkgrey)"
+      : "linear-gradient(to top, #67b26b, #4ca2cb)",
   };
 
   const btnStyles = {
-    backgroundColor: blackTheme ? "black" : "grey",
-    color: blackTheme ? "dodgerblue" : "white",
+    backgroundColor: blackTheme ? "darkgrey" : "#4ca2cb",
+    color: blackTheme ? "black" : "white",
     position: "absolute",
     zIndex: "2",
     fontWeight: "600",
@@ -51,7 +56,16 @@ const PokemonList = () => {
               </div>
             </Link>
             <PokemonImage url={item.url}></PokemonImage>
-            <CatchButton>O</CatchButton>
+            <CatchButton
+              onClick={() =>
+                setCatched((prevCatched) => [
+                  ...prevCatched,
+                  { name: item.name, url: item.url },
+                ])
+              }
+            >
+              O
+            </CatchButton>
           </Card>
         ))}
       </CardContainer>
@@ -60,14 +74,14 @@ const PokemonList = () => {
         onClick={() => setUrl(items.previous)}
         style={btnStyles}
       >
-        Previous
+        🡸
       </PrevButton>
       <NextButton
         className="btn"
         onClick={() => setUrl(items.next)}
         style={btnStyles}
       >
-        Next
+        🡺
       </NextButton>
     </div>
   );

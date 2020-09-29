@@ -8,23 +8,26 @@ import Background from "./images/pokemons.JPG";
 import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeProvider } from "./context/ThemeContext.js";
+import { CatchedProvider } from "./context/CatchedContext.js";
 
 function App() {
   return (
     <ThemeProvider>
-      <Navbar></Navbar>
-      <Switch>
-        <Route path="/" exact />
-        <Route path="/pokemons" component={PokemonList} exact />
-        <Route path="/pokemons/:id" component={PokemonDetail} exact />
-        <Route path="/types" component={TypeList} exact />
-        <Route path="/catched" component={CatchedList} exact />
-      </Switch>
-      <BackgroundImage
-        src={Background}
-        alt=""
-        className="main-image"
-      ></BackgroundImage>
+      <CatchedProvider>
+        <Navbar></Navbar>
+        <Switch>
+          <Route path="/" exact />
+          <Route path="/pokemons" component={PokemonList} exact />
+          <Route path="/pokemons/:id" component={PokemonDetail} exact />
+          <Route path="/types" component={TypeList} exact />
+          <Route path="/catched" component={CatchedList} exact />
+        </Switch>
+        <BackgroundImage
+          src={Background}
+          alt=""
+          className="main-image"
+        ></BackgroundImage>
+      </CatchedProvider>
     </ThemeProvider>
   );
 }
