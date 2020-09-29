@@ -20,11 +20,12 @@ const PokemonList = () => {
   };
 
   const btnStyles = {
-    backgroundColor: blackTheme ? "black" : "crimson",
-    color: blackTheme ? "dodgerblue" : "gold",
+    backgroundColor: blackTheme ? "black" : "grey",
+    color: blackTheme ? "dodgerblue" : "white",
     position: "absolute",
     zIndex: "2",
     fontWeight: "600",
+    padding: "0.5%",
   };
 
   useEffect(() => {
@@ -50,6 +51,7 @@ const PokemonList = () => {
               </div>
             </Link>
             <PokemonImage url={item.url}></PokemonImage>
+            <CatchButton>O</CatchButton>
           </Card>
         ))}
       </CardContainer>
@@ -76,7 +78,7 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   text-align: center;
-  margin: 3% 5% 0% 5%;
+  margin: 2% 5% 0% 5%;
   z-index: 2;
   position: fixed;
 `;
@@ -98,6 +100,20 @@ const NextButton = styled.button`
 const PrevButton = styled.button`
   margin: 30% 0% 0% 40%;
   left: 0;
+`;
+
+const CatchButton = styled.button`
+  background: linear-gradient(
+    to bottom,
+    #ff0038 0%,
+    #ff0038 50%,
+    #ddd 50%,
+    #ddd 100%
+  );
+  font-weight: 600;
+  border-radius: 50px;
+  width: 30px;
+  margin: auto;
 `;
 
 export default PokemonList;

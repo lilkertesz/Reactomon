@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   const navStyles = {
-    backgroundColor: blackTheme ? "black" : "orange",
+    backgroundColor: blackTheme ? "black" : "gold",
     color: blackTheme ? "white" : "black",
   };
   return (
