@@ -18,6 +18,8 @@ const PokemonList = () => {
 
   const [catched, setCatched] = useContext(CatchedContext);
 
+  const catchedPokemons = catched.map((item) => item.name);
+
   const cardStyles = {
     background: blackTheme
       ? "linear-gradient(to bottom, black, darkgrey)"
@@ -56,16 +58,20 @@ const PokemonList = () => {
               </div>
             </Link>
             <PokemonImage url={item.url}></PokemonImage>
-            <CatchButton
-              onClick={() =>
-                setCatched((prevCatched) => [
-                  ...prevCatched,
-                  { name: item.name, url: item.url },
-                ])
-              }
-            >
-              O
-            </CatchButton>
+            {!catchedPokemons.includes(item.name) ? (
+              <CatchButton
+                onClick={() =>
+                  setCatched((prevCatched) => [
+                    ...prevCatched,
+                    { name: item.name, url: item.url },
+                  ])
+                }
+              >
+                O
+              </CatchButton>
+            ) : (
+              <p style={{ fontWeight: "600" }}>catched!</p>
+            )}
           </Card>
         ))}
       </CardContainer>
@@ -100,7 +106,6 @@ const CardContainer = styled.div`
 const Card = styled.div`
   padding: 0.5%;
   margin: 0.5%;
-  width: "110px";
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
   }
