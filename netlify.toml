@@ -1,4 +1,4 @@
 [build]
-base = "Reactomon/reactomon/"
+base = "reactomon/"
 publish = "public/"
 command = "npm run build"
