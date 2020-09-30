@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { CatchedContext } from "../context/CatchedContext";
+import React from "react";
+import { useCatchedContext } from "../context/CatchedContext";
 import styled from "styled-components";
 import PokemonImage from "./PokemonImage";
 import { useBlackTheme } from "../context/ThemeContext.js";
 import { Link } from "react-router-dom";
 
 const CatchedList = () => {
-  const [catched] = useContext(CatchedContext);
+  const [catched] = useCatchedContext();
 
   const blackTheme = useBlackTheme();
 
@@ -15,27 +15,37 @@ const CatchedList = () => {
   };
 
   return (
-    <CardContainer>
-      {catched.map((item) => (
-        <Card className="card" key={item.name} style={cardStyles}>
-          <Link to={`/pokemons/${item.url.split("/").slice(-2).slice(0, -1)}`}>
-            <div style={{ color: "white", fontWeight: "600" }}>{item.name}</div>
-          </Link>
-          <PokemonImage url={item.url}></PokemonImage>
-        </Card>
-      ))}
-    </CardContainer>
+    <div>
+      <CatchedHeader>Catched Pokemons:</CatchedHeader>
+      <CardContainer>
+        {catched.map((item) => (
+          <Card className="card" key={item.name} style={cardStyles}>
+            <Link
+              to={`/pokemons/${item.url.split("/").slice(-2).slice(0, -1)}`}
+            >
+              <FontStyle>{item.name}</FontStyle>
+            </Link>
+            <PokemonImage url={item.url}></PokemonImage>
+          </Card>
+        ))}
+      </CardContainer>
+    </div>
   );
 };
 
+const FontStyle = styled.div`
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 const CardContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-flow: row wrap;
   text-align: center;
   margin: 2% 5% 0% 5%;
   z-index: 2;
-  position: absolute;
+  position: relative;
 `;
 
 const Card = styled.div`
@@ -44,6 +54,13 @@ const Card = styled.div`
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
   }
+  width: 110px;
+`;
+
+const CatchedHeader = styled.h3`
+  margin-left: 5%;
+  position: relative;
+  z-index: 2;
 `;
 
 export default CatchedList;

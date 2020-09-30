@@ -1,6 +1,10 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 
 export const CatchedContext = createContext();
+
+export const useCatchedContext = () => {
+  return useContext(CatchedContext);
+};
 
 export const CatchedProvider = (props) => {
   const [catched, setCatched] = useState([]);

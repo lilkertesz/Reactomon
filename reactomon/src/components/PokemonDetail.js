@@ -21,10 +21,10 @@ const PokemonDetail = (props) => {
 
   const cardStyle = {
     background: blackTheme
-      ? "linear-gradient(to bottom, black, darkgrey)"
+      ? "black"
       : "linear-gradient(to top, #67b26b, #4ca2cb)",
     color: blackTheme ? "white" : "black",
-    opacity: blackTheme ? "95%" : "95%",
+    opacity: blackTheme ? "90%" : "90%",
   };
 
   useEffect(() => {

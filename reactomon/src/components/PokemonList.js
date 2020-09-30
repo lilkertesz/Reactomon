@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PokemonImage from "./PokemonImage";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { useBlackTheme } from "../context/ThemeContext.js";
-import { CatchedContext } from "../context/CatchedContext";
+import { useCatchedContext } from "../context/CatchedContext";
 
 const PokemonList = () => {
   const [items, setItems] = useState({
@@ -16,23 +16,24 @@ const PokemonList = () => {
 
   const blackTheme = useBlackTheme();
 
-  const [catched, setCatched] = useContext(CatchedContext);
+  const [catched, setCatched] = useCatchedContext();
 
   const catchedPokemons = catched.map((item) => item.name);
 
   const cardStyles = {
     background: blackTheme
-      ? "linear-gradient(to bottom, black, darkgrey)"
+      ? "black"
       : "linear-gradient(to top, #67b26b, #4ca2cb)",
   };
 
   const btnStyles = {
-    backgroundColor: blackTheme ? "darkgrey" : "#4ca2cb",
-    color: blackTheme ? "black" : "white",
-    position: "absolute",
-    zIndex: "2",
+    backgroundColor: blackTheme ? "black" : "#4ca2cb",
+    color: "white",
     fontWeight: "600",
-    padding: "0.5%",
+    display: "flex",
+    marginTop: "30%",
+    zIndex: "2",
+    position: "relative",
   };
 
   useEffect(() => {
@@ -53,24 +54,28 @@ const PokemonList = () => {
             <Link
               to={`/pokemons/${item.url.split("/").slice(-2).slice(0, -1)}`}
             >
-              <div style={{ color: "white", fontWeight: "600" }}>
-                {item.name}
-              </div>
+              <FontStyle>{item.name}</FontStyle>
             </Link>
-            <PokemonImage url={item.url}></PokemonImage>
             {!catchedPokemons.includes(item.name) ? (
-              <CatchButton
-                onClick={() =>
-                  setCatched((prevCatched) => [
-                    ...prevCatched,
-                    { name: item.name, url: item.url },
-                  ])
-                }
-              >
-                O
-              </CatchButton>
+              <div>
+                <PokemonImage url={item.url}></PokemonImage>
+                <FontStyle
+                  onClick={() =>
+                    setCatched((prevCatched) => [
+                      ...prevCatched,
+                      { name: item.name, url: item.url },
+                    ])
+                  }
+                >
+                  Catch It!
+                </FontStyle>
+              </div>
             ) : (
-              <p style={{ fontWeight: "600" }}>catched!</p>
+              <div>
+                <Link to={"/catched"}>
+                  <CatchButton>O</CatchButton>
+                </Link>
+              </div>
             )}
           </Card>
         ))}
@@ -93,6 +98,22 @@ const PokemonList = () => {
   );
 };
 
+const FontStyle = styled.div`
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
+const PrevButton = styled.button`
+  float: left;
+  margin-left: 3%;
+`;
+
+const NextButton = styled.button`
+  float: right;
+  margin-right: 3%;
+`;
+
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -109,16 +130,7 @@ const Card = styled.div`
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
   }
-`;
-
-const NextButton = styled.button`
-  margin: 30% 40% 0% 0%;
-  right: 0;
-`;
-
-const PrevButton = styled.button`
-  margin: 30% 0% 0% 40%;
-  left: 0;
+  width: 110px;
 `;
 
 const CatchButton = styled.button`
@@ -130,9 +142,10 @@ const CatchButton = styled.button`
     #ddd 100%
   );
   font-weight: 600;
-  border-radius: 50px;
-  width: 30px;
-  margin: auto;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 30px auto;
 `;
 
 export default PokemonList;

@@ -17,47 +17,51 @@ const Navbar = () => {
     color: blackTheme ? "black" : "white",
   };
 
-  const navStyles = {
+  const navBtnStyles = {
     backgroundColor: blackTheme ? "black" : "gold",
     color: blackTheme ? "white" : "black",
+    fontWeight: "700",
   };
+
   return (
-    <Navigation className="navbar">
-      <Card className="card" style={navStyles}>
-        <Link to="/pokemons" style={{ textDecoration: "none" }}>
+    <NavContainer>
+      <Navigation className="navbar">
+        <Link to="/pokemons" className="btn" style={navBtnStyles}>
           POKEMONS
         </Link>
-      </Card>
-      <Link to="/catched">
-        <img src={require("../images/logo.JPG")} alt="pokelogo" width="100px" />
-      </Link>
-      <Card className="card" style={navStyles}>
-        <Link to="/types" style={{ textDecoration: "none" }}>
+        <Link to="/">
+          <PokeLogo src={require("../images/logo.JPG")} alt="pokelogo" />
+        </Link>
+        <Link to="/types" className="btn" style={navBtnStyles}>
           POKETYPES
         </Link>
-      </Card>
-      <Black className="btn" onClick={toggleTheme} style={themeStyles}>
-        I ❤ {currentTheme}
-      </Black>
-    </Navigation>
+        <Black className="btn" onClick={toggleTheme} style={themeStyles}>
+          I ❤ {currentTheme}
+        </Black>
+      </Navigation>
+    </NavContainer>
   );
 };
 
-const Card = styled.div`
-  padding: 1% 2%;
-  text-decoration: none;
-  font-weight: 700;
+const PokeLogo = styled.img`
+  width: 100px;
+  margin: 5px 25px;
+`;
+
+const NavContainer = styled.div`
+  z-index: 2;
+  background-color: white;
+  position: relative;
 `;
 
 const Navigation = styled.div`
   margin-left: 35%;
-  margin-right: 5%;
 `;
 
 const Black = styled.button`
   width: 110px;
-  margin-left: 35%;
   font-weight: 600;
+  margin: auto;
 `;
 
 export default Navbar;

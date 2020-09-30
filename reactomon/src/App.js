@@ -33,10 +33,12 @@ function App() {
 }
 
 const BackgroundImage = styled.img`
-  margin-left: 5%;
   z-index: 1;
-  position: fixed;
   opacity: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -35%);
 `;
 
 export default App;
